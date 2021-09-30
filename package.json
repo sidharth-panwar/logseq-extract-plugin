@@ -1,0 +1,22 @@
+{
+    "name": "logseq-extract-plugin",
+    "version": "0.1.0",
+    "description": "Extract highlighted/bold content from block. Optionally, you can set the regex in settings to get what you want.",
+    "main": "index.html",
+    "author": "Sidharth Panwar",
+    "license": "MIT",
+    "scripts": {
+        "dev": "parcel ./index.html --public-url ./",
+        "build": "parcel build --public-url . index.html"
+    },
+    "dependencies": {
+        "@logseq/libs": "^0.0.1-alpha.22"
+    },
+    "devDependencies": {
+        "parcel": "^2.0.0-beta.2",
+        "parcel-bundler": "^1.12.4"
+    },
+    "logseq": {
+        "id": "logseq-extract"
+    }
+}
