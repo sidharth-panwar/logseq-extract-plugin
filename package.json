@@ -1,6 +1,6 @@
 {
     "name": "logseq-extract-plugin",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "Extract highlighted/bold content from block. Optionally, you can set the regex in settings to get what you want.",
     "main": "index.html",
     "author": "Sidharth Panwar",
@@ -17,6 +17,7 @@
         "parcel-bundler": "^1.12.4"
     },
     "logseq": {
-        "id": "logseq-extract"
+        "id": "logseq-extract",
+        "icon": "./extract.svg"
     }
 }

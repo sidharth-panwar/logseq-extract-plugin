@@ -38,11 +38,20 @@ function main() {
         async (currentBlock) => {
 
             //Get current block content
-            const { content } = await logseq.Editor.getBlock(currentBlock.uuid);
+            const block = await logseq.Editor.getBlock(currentBlock.uuid, { includeChildren: pluginSettings.nested });
             const regEx = new RegExp(pluginSettings.expr, 'g');
 
             //Get all extracts that match regex
-            const extracts = [...content.matchAll(regEx)];
+            //const extracts = [...block.content.matchAll(regEx)];
+            let extracts = [];
+            getExtracts(block, regEx, extracts);
+
+            //EXIT if no extracts found
+            if (!extracts || !extracts.length) {
+
+                logseq.App.showMsg('❗ Nothing to extract!');
+                return;
+            }
 
             //Create a summary block below the current block (sibling) - you can change content of this block 
             //from Summary to something else by changing the summaryTitle property in settings
@@ -51,18 +60,39 @@ function main() {
             //Create the extracts as children blocks of summary block
             extracts.forEach((i) => {
 
-                let content = i[0];
+                let content = i.content;
 
                 //Remove == or ** from start and end if keepMeta is false
                 content = pluginSettings.keepMeta ? content : content.slice(2, -2);
 
                 //Keep reference of source block
-                content = pluginSettings.keepRefs ? `${content} [*](((${currentBlock.uuid})))` : content;
+                content = pluginSettings.keepRefs ? `${content} [*](((${i.source.uuid})))` : content;
 
                 logseq.Editor.insertBlock(summaryBlock.uuid, content, { sibling: false });
             });
+
+            logseq.App.showMsg('✔️ Extraction completed successfully!');
         }
     );
+}
+
+function getExtracts(currentBlock, regEx, extracts) {
+
+    //Get children of the current block
+    let children = currentBlock.children;
+
+    //Find the extracts from the current block
+    let currentBlockExtracts = [...currentBlock.content.matchAll(regEx)];
+
+    //Create a map from current block's extracts
+    let currentBlockExtractsWithBlockRef = currentBlockExtracts.map((e) => { return { content: e[0], source: currentBlock }; });
+
+    //Push the extracts map from current block into main extracts array
+    !!currentBlockExtracts.length && extracts.push(...currentBlockExtractsWithBlockRef);
+
+    //If there are children then call this method recursively (filling the main extracts array which is passed as argument)
+    !!children.length && children.forEach((c) => getExtracts(c, regEx, extracts));
+    return;
 }
 
 // bootstrap
