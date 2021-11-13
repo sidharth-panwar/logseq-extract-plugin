@@ -1,9 +1,13 @@
 # logseq-extract-plugin
-The logseq-extract-plugin is used to extract bold and highlighted text from a block and all its nested blocks.
+The logseq-extract-plugin is used to extract bold and highlighted text from a block and all its nested blocks or the complete page.
 
 Here's how it looks like:
 
-![logseq-extract-plugin](./Extract_v2.gif)
+### Extract Block
+![Block Extract](./Extract_v2.gif)
+
+### Extract Page
+![{Page Extract}](./ExtractPage_v2.gif)
 
 The plugin relies on regex to match and extract the desired text. So, technically, you can change the match settings and extract custom text as well, for e.g., if you mark certain points in your text with a special character like $$ etc., you can update the regex settings and the plugin will extract this new text for you.
 

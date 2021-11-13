@@ -1,7 +1,7 @@
 {
     "name": "logseq-extract-plugin",
-    "version": "1.0.7",
-    "description": "Extract highlighted/bold content from block. Optionally, you can set the regex in settings to get what you want.",
+    "version": "2.0.0",
+    "description": "Extract highlighted/bold content from block or page",
     "main": "index.html",
     "author": "Sidharth Panwar",
     "license": "MIT",
