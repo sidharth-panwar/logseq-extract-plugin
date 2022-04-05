@@ -1,6 +1,6 @@
 {
     "name": "logseq-extract-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Extract highlighted/bold content from block or page",
     "main": "index.html",
     "author": "Sidharth Panwar",
@@ -10,7 +10,7 @@
         "build": "parcel build --public-url . index.html"
     },
     "dependencies": {
-        "@logseq/libs": "^0.0.1-alpha.22"
+        "@logseq/libs": "^0.0.1-alpha.35"
     },
     "devDependencies": {
         "parcel": "^2.0.0-beta.2",

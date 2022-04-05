@@ -74,6 +74,7 @@ function main() {
         //const extracts = [...block.content.matchAll(regEx)];
         let extracts = [];
         getExtracts(block, regEx, extracts);
+        //if extracts is empty then return
 
         return extracts;
     }
@@ -89,6 +90,7 @@ function main() {
             logseq.App.showMsg('❗ Nothing to extract!');
             return;
         }
+        logseq.Editor.upsertBlockProperty(currentBlock.uuid, 'id', currentBlock.uuid)
 
         summarizeExtracts(extracts, currentBlock);
     };
