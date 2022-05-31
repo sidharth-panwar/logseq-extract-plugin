@@ -1,4 +1,5 @@
 # logseq-extract-plugin
+A fork of the [logseq extract plugin](https://github.com/sidharth-panwar/logseq-extract-plugin) by @sidharth-panwar
 The logseq-extract-plugin is used to extract bold and highlighted text from a block and all its nested blocks or the complete page.
 
 Here's how it looks like:
@@ -24,5 +25,4 @@ Whenever changing the settings, you'll need to restart logseq for settings to ta
 
 ## Running the Plugin
 
-- `yarn install && yarn build` in terminal to install dependencies.
-- `Load unpacked plugin` in Logseq Desktop client.
+- Download the release
