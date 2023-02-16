@@ -18,6 +18,7 @@ Here's an overview of some of the settings:
 - summaryTitle: This holds the text for the extract parent block. Default is 'Summary'.
 - keepRefs: This setting when true keeps a reference to the source block in this format [*](((uuid))). Default is true.
 - nested: This setting when true extracts from current block and all the nested blocks. Default is true.
+- keepSummaryAbove: This setting decides where the summary will be created. It's a boolean setting and is set to false by default. When the setting is true for a block the summary block is created immediately above the block. If the setting is true and we do a page level extract then Summary becomes the first block of the page. If false (default), summary is created either immediately below a block or at the bottom of the page.
 - keepMeta: Remove highlights and bold from extracted text. Default is false. If set to true it'll keep the bold and highlights with the extracted text.
 - settingsVersion: **DON'T CHANGE THIS. THIS IS ONLY FOR THE PLUGIN TO UPDATE!**
 

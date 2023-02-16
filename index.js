@@ -4,7 +4,7 @@ function manageSettings(logseq) {
   const boldRegEx = "(\\*\\*[^\\*]+\\*\\*)";
 
   //CHANGE THIS WHEN ADDING NEW SETTINGS
-  const settingsVersion = "v1";
+  const settingsVersion = "v2";
 
   //Use only for saving these first time in the plugin settings file
   let defaultSettings = {
@@ -13,6 +13,7 @@ function manageSettings(logseq) {
     keepRefs: true, //Keeps a reference to the source block in this format [*](((uuid)))
     nested: true, //Extract from current block and all the child blocks
     keepMeta: false, //Remove highlights and bold
+    keepSummaryAbove: false, //Keep summary above the current block
     settingsVersion: settingsVersion,
   };
 
@@ -39,13 +40,15 @@ function main() {
   //targetBlock is the block under which the summary will be created.
   //For block extract this will be immediately below the current block.
   //For page extract it'll be the last block in the page.
-  var summarizeExtracts = async (extracts, targetBlock) => {
+  //If keepSummaryAbove is true then it'll be the first block in the page for pagePipeline.
+  //If keepSummaryAbove is false then summary will appear above the summarized block for blockPipeline.
+  var summarizeExtracts = async (extracts, targetBlock, keepSummaryAbove) => {
     //Create a summary block below the current block (sibling) - you can change content of this block
     //from Summary to something else by changing the summaryTitle property in settings
     var summaryBlock = await logseq.Editor.insertBlock(
       targetBlock.uuid,
       pluginSettings.summaryTitle,
-      { sibling: true }
+      { sibling: true, before: keepSummaryAbove }
     );
 
     //Create the extracts as children blocks of summary block
@@ -95,12 +98,13 @@ function main() {
       return;
     }
 
-    summarizeExtracts(extracts, currentBlock);
+    summarizeExtracts(extracts, currentBlock, pluginSettings.keepSummaryAbove);
   };
 
   //blockPipeline is the entry point when we extract at page level.
   var pagePipeline = async (context) => {
     let pageBlocks = await logseq.Editor.getPageBlocksTree(context.page);
+    let summaryPosition = pluginSettings.keepSummaryAbove ? 0 : pageBlocks.length-1;
     let extracts = [];
 
     for (const block of pageBlocks) {
@@ -116,7 +120,7 @@ function main() {
       return;
     }
 
-    summarizeExtracts(extracts, pageBlocks[pageBlocks.length - 1]);
+    summarizeExtracts(extracts, pageBlocks[summaryPosition], pluginSettings.keepSummaryAbove);
   };
 
   //Extraction function which registers Extract as a context menu for a block
