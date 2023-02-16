@@ -27,3 +27,10 @@ Whenever changing the settings, you'll need to restart logseq for settings to ta
 ## Running the Plugin
 
 - Download the release
+
+## Dev Considerations
+Steps to build the plugin:
+- Enable Dev Mode in Logseq to test the plugin
+- Push commits to Github
+- Update the tag locally by using this command: `git tag <version>`
+- Push the tag to trigger a Github action: `git push --tags origin`
